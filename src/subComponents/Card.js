@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { Github } from '../components/AllSvgs';
 
 const Box = styled(motion.li)`
-  width: 24rem;      
-  height: 60vh;       
+  width: 30rem;      
+  height: 63vh;       
   background-color: ${props => props.theme.text};
   color: ${props => props.theme.body};
   margin-right: 8rem;
@@ -25,13 +25,13 @@ const Box = styled(motion.li)`
 
   @media (max-width: 768px) {
     width: 18rem;
-    height: 50vh;
+    height: 55vh;
     margin-right: 2rem;
   }
 
   @media (max-width: 480px) {
-    width: 14rem;
-    height: 45vh;
+    width: 18rem;
+    height: 55vh;
     margin-right: 1rem;
   }
 `;
@@ -47,7 +47,7 @@ const ImageWrapper = styled.div`
   }
 
   @media (max-width: 480px) {
-    height: 45%;
+    height: 50%;
   }
 `;
 
@@ -59,7 +59,7 @@ const Image = styled.img`
   cursor: pointer;
 
   &:hover {
-    filter: brightness(0.85);
+    filter: brightness(0.95);
   }
 `;
 
@@ -73,9 +73,9 @@ const ImageNav = styled.div`
 `;
 
 const Dot = styled.span`
-  width: ${props => props.active ? '0.8rem' : '0.5rem'};
-  height: ${props => props.active ? '0.8rem' : '0.5rem'};
-  background: ${props => props.active ? props.theme.body : 'rgba(255,255,255,0.6)'};
+  width: ${props => props.active ? '0.8rem' : '0.9rem'};
+  height: ${props => props.active ? '0.8rem' : '0.9rem'};
+  background: ${props => props.active ? props.theme.body : 'rgba(255, 255, 255, 0.9)'};
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -90,15 +90,17 @@ const Content = styled.div`
 `;
 
 const Title = styled.h2`
-  font-size: calc(1em + 0.5vw);
+  font-size: calc(1em + 0.7vw);
   margin: 0;
+        padding-bottom: 0.2rem;
+
 
   @media (max-width: 768px) {
     font-size: calc(0.9em + 0.4vw);
   }
 
   @media (max-width: 480px) {
-    font-size: calc(0.8em + 0.3vw);
+    font-size: calc(1em + 0.6vw);
   }
 `;
 
@@ -112,7 +114,8 @@ const Description = styled.h2`
   }
 
   @media (max-width: 480px) {
-    font-size: calc(0.7em + 0.2vw);
+    font-size: calc(0.75em + 0.5vw);
+    padding-top: 0.2rem;
   }
 `;
 
