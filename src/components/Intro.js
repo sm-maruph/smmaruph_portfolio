@@ -52,7 +52,7 @@ display: flex;
 const Text = styled.div`
 font-size: calc(1em + 1.5vw);
 color: ${props => props.theme.body};
-padding: 2rem;
+padding: 1rem;
 cursor: pointer;
 
 display: flex;

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom"; // ✅ useLocation
 import styled, { keyframes } from "styled-components";
 import LogoComponent from "../subComponents/LogoComponent";
 import PowerButton from "../subComponents/PowerButton";
@@ -148,6 +148,8 @@ const DarkDiv = styled.div`
 
 const Main = () => {
   const [click, setClick] = useState(false);
+  const location = useLocation(); // ✅ Correct usage of the hook
+
 
   const handleClick = () => setClick(!click);
 
@@ -155,7 +157,7 @@ const Main = () => {
     <MainContainer>
       <DarkDiv click={click} />
       <Container>
-        <PowerButton />
+        {location.pathname !== "/" && <PowerButton />}  
         <LogoComponent theme={click ? "dark" : "light"} />
         <SocialIcons theme={click ? "dark" : "light"} />
 
