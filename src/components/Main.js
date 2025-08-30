@@ -12,6 +12,8 @@ const MainContainer = styled.div`
   background: ${(props) => props.theme.body};
   width: 100vw;
   height: 100vh;
+  height: 100dvh; /* Use dynamic viewport height */
+  min-height: -webkit-fill-available; /* iOS Safari fix */
   overflow: hidden;
 
   position: relative;
