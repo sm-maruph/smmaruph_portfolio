@@ -113,8 +113,8 @@ const Intro = () => {
           <h3>I'm S.M. Shahriar Rahman Maruph</h3>
           <h4>Software Engineer | BSc in CSE</h4>
           <h6>
-            I create elegant and efficient web solutions, combining clean code
-            with intuitive design.
+            I create elegant, and efficient software solutions, combining clean code
+            with user-centric and interactive design.
           </h6>
         </Text>
       </SubBox>
