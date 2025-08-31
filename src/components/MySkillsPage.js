@@ -70,6 +70,12 @@ const IconWrapper = styled(motion.div)`
   align-items: center;
   z-index: 5;
   padding-bottom: 1rem;
+  padding-left: 1rem;
+
+  @media (max-width: 768px) {
+    gap: 0.5rem;
+    justify-content: center;
+  }
   color: ${(props) =>
     props.hovered ? props.hoverColor : props.color}; /* use hovered prop */
 
@@ -79,7 +85,7 @@ const IconWrapper = styled(motion.div)`
   }
 
   &:hover > svg {
-    transform: scale(1.3); /* individual icon hover scale */
+    transform: scale(1.4); /* individual icon hover scale */
   }
 
   &:hover span {
@@ -127,6 +133,10 @@ const Main = styled.div`
   &::-webkit-scrollbar-track {
     background: ${(props) => props.theme.body};
   }
+  @media (max-width: 768px) {
+    padding: 0.4rem;
+    width: 40vw;
+  }
 `;
 
 const Title = styled.h2`
@@ -148,7 +158,7 @@ const Title = styled.h2`
 
 const Description = styled.div`
   color: ${(props) => props.theme.text};
-  font-size: calc(0.6em + 1vw);
+  font-size: calc(0.4em + 1vw);
   padding: 0.5rem 0;
 
   ${Main}:hover & {
@@ -205,7 +215,7 @@ const iconColors = {
   seaborn: { normal: "#3776AB", light: "#6FAEE0" },
   mysql: { normal: "#4479A1", light: "#6EA8D9" },
   mssql: { normal: "#CC2927", light: "#F08078" },
-   microsoftoffice: { normal: "#D83B01", light: "#FF6F3C" },
+  microsoftoffice: { normal: "#D83B01", light: "#FF6F3C" },
   overleaf: { normal: "#179B77", light: "#4ECBA6" },
 };
 
@@ -224,16 +234,21 @@ const IconGrid = styled.div`
 const Tooltip = styled.span`
   position: absolute;
   top: 80%;
-  background: ${(props) => props.theme.text};
-  color: ${(props) => props.theme.body};
+  background: transparent;
+  color: ${(props) =>
+    props.hovered ? "#fff" : props.theme.text}; // white on hover
   padding: 0 0.2rem;
   border-radius: 5px;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   white-space: nowrap;
-  opacity: 0;
+  opacity: 1; // always visible
   pointer-events: none;
   transition: all 0.3s ease;
   z-index: 10;
+
+  @media (max-width: 768px) {
+    font-size: 0.5rem;
+  }
 `;
 
 const iconVariants = {
@@ -244,16 +259,17 @@ const iconVariants = {
 const MySkillsPage = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
 
-  const renderIcon = (Icon, normalColor, lightColor, label) => (
+  // Update renderIcon to accept a 'cardType' prop
+  const renderIcon = (Icon, normalColor, lightColor, label, cardType) => (
     <IconWrapper
       color={normalColor}
       hoverColor={lightColor}
-      hovered={hoveredCard !== null}
+      hovered={hoveredCard === cardType} // Only hover effect if this card is hovered
       variants={iconVariants}
       whileTap="tap"
     >
       <Icon size={35} />
-      <Tooltip>{label}</Tooltip>
+      <Tooltip hovered={hoveredCard === cardType}>{label}</Tooltip>
     </IconWrapper>
   );
 
@@ -273,10 +289,18 @@ const MySkillsPage = () => {
           <Title>
             <Design width={40} height={40} /> Designer
           </Title>
-          <Description>
+          <Description
+            style={{
+              display: "block", // makes it behave like a block element
+              width: "100%", // ✅ full width
+              wordBreak: "break-word", // ✅ wrap long words
+              whiteSpace: "normal", // ✅ allow wrapping
+            }}
+          >
             I love designing with HCI principles and UI/UX best practices to
             create human-centered, intuitive, and interactive experiences.
           </Description>
+
           <Description>
             <strong>I like to Design</strong>
             <ul>
@@ -292,24 +316,28 @@ const MySkillsPage = () => {
                 SiFigma,
                 iconColors.figma.normal,
                 iconColors.figma.light,
-                "Figma"
+                "Figma",
+                "designer"
               )}
               {renderIcon(
                 SiFramer,
                 iconColors.framer.normal,
                 iconColors.framer.light,
-                "Framer"
+                "Framer",
+                "designer"
               )}
               {renderIcon(
                 SiCanva,
                 iconColors.canva.normal,
                 iconColors.canva.light,
-                "Canva"
+                "Canva",
+                "designer"
               )}
             </IconGrid>
           </Description>
         </Main>
 
+        {/* Developer Card */}
         {/* Developer Card */}
         <Main
           onMouseEnter={() => setHoveredCard("developer")}
@@ -322,6 +350,7 @@ const MySkillsPage = () => {
             I value businesses and brands I create for — I love bringing new
             ideas to life with code.
           </Description>
+
           <Description>
             <strong>Programming Languages</strong>
             <IconGrid>
@@ -329,56 +358,71 @@ const MySkillsPage = () => {
                 FaHtml5,
                 iconColors.html.normal,
                 iconColors.html.light,
-                "HTML5"
+                "HTML5",
+                "developer"
               )}
               {renderIcon(
                 FaCss3Alt,
                 iconColors.css.normal,
                 iconColors.css.light,
-                "CSS3"
+                "CSS3",
+                "developer"
               )}
               {renderIcon(
                 FaJs,
                 iconColors.js.normal,
                 iconColors.js.light,
-                "JavaScript"
+                "JavaScript",
+                "developer"
               )}
               {renderIcon(
                 FaPython,
                 iconColors.python.normal,
                 iconColors.python.light,
-                "Python"
+                "Python",
+                "developer"
               )}
               {renderIcon(
                 FaJava,
                 iconColors.java.normal,
                 iconColors.java.light,
-                "Java"
+                "Java",
+                "developer"
               )}
               {renderIcon(
                 FaPhp,
                 iconColors.php.normal,
                 iconColors.php.light,
-                "PHP"
+                "PHP",
+                "developer"
               )}
-              {renderIcon(SiC, iconColors.c.normal, iconColors.c.light, "C")}
+              {renderIcon(
+                SiC,
+                iconColors.c.normal,
+                iconColors.c.light,
+                "C",
+                "developer"
+              )}
               {renderIcon(
                 SiCplusplus,
                 iconColors.cpp.normal,
                 iconColors.cpp.light,
-                "C++"
+                "C++",
+                "developer"
               )}
               {renderIcon(
                 SiFlutter,
                 iconColors.flutter.normal,
                 iconColors.flutter.light,
-                "Flutter"
+                "Flutter",
+                "developer"
               )}
               {renderIcon(
                 FaReact,
                 iconColors.react.normal,
                 iconColors.react.light,
-                "React Native"
+                "React Native",
+                "developer"
               )}
             </IconGrid>
           </Description>
@@ -390,43 +434,50 @@ const MySkillsPage = () => {
                 FaReact,
                 iconColors.react.normal,
                 iconColors.react.light,
-                "React"
+                "React",
+                "developer"
               )}
               {renderIcon(
                 FaBootstrap,
                 iconColors.bootstrap.normal,
                 iconColors.bootstrap.light,
-                "Bootstrap"
+                "Bootstrap",
+                "developer"
               )}
               {renderIcon(
                 SiTailwindcss,
                 iconColors.tailwind.normal,
                 iconColors.tailwind.light,
-                "TailwindCSS"
+                "TailwindCSS",
+                "developer"
               )}
               {renderIcon(
                 FaNodeJs,
                 iconColors.node.normal,
                 iconColors.node.light,
-                "Node.js"
+                "Node.js",
+                "developer"
               )}
               {renderIcon(
                 SiExpress,
                 iconColors.express.normal,
                 iconColors.express.light,
-                "Express.js"
+                "Express.js",
+                "developer"
               )}
               {renderIcon(
                 SiFirebase,
                 iconColors.firebase.normal,
                 iconColors.firebase.light,
-                "Firebase"
+                "Firebase",
+                "developer"
               )}
               {renderIcon(
                 SiFlutter,
                 iconColors.flutter.normal,
                 iconColors.flutter.light,
-                "Flutter"
+                "Flutter",
+                "developer"
               )}
 
               {/* Python Libraries */}
@@ -434,63 +485,79 @@ const MySkillsPage = () => {
                 SiNumpy,
                 iconColors.numpy.normal,
                 iconColors.numpy.light,
-                "NumPy"
+                "NumPy",
+                "developer"
               )}
               {renderIcon(
                 SiMatplotlib,
                 iconColors.matplotlib.normal,
                 iconColors.matplotlib.light,
-                "Matplotlib"
+                "Matplotlib",
+                "developer"
+              )}
+              
+              {renderIcon(
+                SiPandas,
+                iconColors.pandas.normal,
+                iconColors.pandas.light,
+                "Pandas",
+                "developer"
               )}
               {renderIcon(
                 SiScikitlearn,
                 iconColors.scikitlearn.normal,
                 iconColors.scikitlearn.light,
-                "Scikit-learn"
-              )}
-              {renderIcon(
-                SiPandas,
-                iconColors.pandas.normal,
-                iconColors.pandas.light,
-                "Pandas"
+                "Scikit-learn",
+                "developer"
               )}
             </IconGrid>
           </Description>
 
           <Description>
-            <strong>🛠 Tools & Platforms </strong>
+            <strong>🛠 Tools & Platforms</strong>
             <IconGrid>
               {renderIcon(
                 FaGithub,
                 iconColors.github.normal,
                 iconColors.github.light,
-                "GitHub"
+                "GitHub",
+                "developer"
               )}
               {renderIcon(
                 SiVscode,
                 iconColors.vscode.normal,
                 iconColors.vscode.light,
-                "VS Code"
+                "VS Code",
+                "developer"
               )}
               {renderIcon(
                 FaDocker,
                 iconColors.docker.normal,
                 iconColors.docker.light,
-                "Docker"
+                "Docker",
+                "developer"
               )}
               {renderIcon(
                 SiPostman,
                 iconColors.postman.normal,
                 iconColors.postman.light,
-                "Postman"
+                "Postman",
+                "developer"
               )}
-             
-    {renderIcon(
-      SiOverleaf,
-      iconColors.overleaf.normal,
-      iconColors.overleaf.light,
-      "Overleaf"
-    )}
+              {/* {renderIcon(
+                SiMicrosoftoffice,
+                iconColors.microsoftoffice.normal,
+                iconColors.microsoftoffice.light,
+                "Microsoft Office",
+                "developer"
+              )} */}
+              {renderIcon(
+                SiOverleaf,
+                iconColors.overleaf.normal,
+                iconColors.overleaf.light,
+                "Overleaf",
+                "developer"
+              )}
             </IconGrid>
           </Description>
 
@@ -501,31 +568,36 @@ const MySkillsPage = () => {
                 SiJira,
                 iconColors.jira.normal,
                 iconColors.jira.light,
-                "Jira"
+                "Jira",
+                "developer"
               )}
               {renderIcon(
                 SiTrello,
                 iconColors.trello.normal,
                 iconColors.trello.light,
-                "Trello"
+                "Trello",
+                "developer"
               )}
               {renderIcon(
                 SiNotion,
                 iconColors.notion.normal,
                 iconColors.notion.light,
-                "Notion"
+                "Notion",
+                "developer"
               )}
               {renderIcon(
                 SiClickup,
                 iconColors.clickup.normal,
                 iconColors.clickup.light,
-                "ClickUp"
+                "ClickUp",
+                "developer"
               )}
               {renderIcon(
                 SiGitlab,
                 iconColors.gitlab.normal,
                 iconColors.gitlab.light,
-                "GitLab"
+                "GitLab",
+                "developer"
               )}
             </IconGrid>
           </Description>
@@ -537,31 +609,36 @@ const MySkillsPage = () => {
                 SiFirebase,
                 iconColors.firebase.normal,
                 iconColors.firebase.light,
-                "Firebase"
+                "Firebase",
+                "developer"
               )}
               {renderIcon(
                 SiMongodb,
                 iconColors.mongodb.normal,
                 iconColors.mongodb.light,
-                "MongoDB"
+                "MongoDB",
+                "developer"
               )}
               {renderIcon(
                 SiPostgresql,
                 iconColors.postgresql.normal,
                 iconColors.postgresql.light,
-                "PostgreSQL"
+                "PostgreSQL",
+                "developer"
               )}
               {renderIcon(
                 SiMysql,
                 iconColors.mysql.normal,
                 iconColors.mysql.light,
-                "MySQL"
+                "MySQL",
+                "developer"
               )}
               {renderIcon(
                 SiMssql,
                 iconColors.mssql.normal,
                 iconColors.mssql.light,
-                "MSSQL"
+                "MSSQL",
+                "developer"
               )}
             </IconGrid>
           </Description>

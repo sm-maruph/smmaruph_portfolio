@@ -98,6 +98,23 @@ const Text = styled.div`
       font-size: calc(0.5rem + 1.2vw);
     }
   }
+    /* Mobile adjustments */
+  @media (max-width: 390px) {
+    padding: 1rem;
+
+    h1 {
+      font-size: calc(1rem + 2vw);
+    }
+    h3 {
+      font-size: calc(0.7rem + 2vw);
+    }
+    h4 {
+      font-size: calc(0.6rem + 1.5vw);
+    }
+    h6 {
+      font-size: calc(0.4rem + 1.2vw);
+    }
+  }
 `;
 
 const Intro = () => {

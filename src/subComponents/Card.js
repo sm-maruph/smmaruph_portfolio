@@ -25,13 +25,13 @@ const Box = styled(motion.li)`
 
   @media (max-width: 768px) {
     width: 18rem;
-    height: 55vh;
+    height: 45vh;
     margin-right: 2rem;
   }
 
   @media (max-width: 480px) {
     width: 18rem;
-    height: 55vh;
+    height: 45vh;
     margin-right: 1rem;
   }
 `;
