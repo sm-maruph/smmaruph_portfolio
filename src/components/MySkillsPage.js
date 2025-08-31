@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { lightTheme } from "./Themes";
 import { Design, Develope } from "./AllSvgs";
@@ -258,7 +258,37 @@ const iconVariants = {
 
 const MySkillsPage = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
+  // inside your component
+  const [isMobile, setIsMobile] = useState(false);
 
+  const cardRefs = {
+    designer: useRef(null),
+    developer: useRef(null),
+  };
+
+  useEffect(() => {
+    // check if mobile
+    setIsMobile(window.innerWidth <= 768);
+
+    if (!isMobile) return; // only activate scroll tracking for mobile
+
+    const handleScroll = () => {
+      Object.entries(cardRefs).forEach(([key, ref]) => {
+        if (ref.current) {
+          const rect = ref.current.getBoundingClientRect();
+          const inView =
+            rect.top < window.innerHeight / 2 &&
+            rect.bottom > window.innerHeight / 2;
+          if (inView) setHoveredCard(key);
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // run once
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isMobile]);
   // Update renderIcon to accept a 'cardType' prop
   const renderIcon = (Icon, normalColor, lightColor, label, cardType) => (
     <IconWrapper
@@ -285,6 +315,7 @@ const MySkillsPage = () => {
         <Main
           onMouseEnter={() => setHoveredCard("designer")}
           onMouseLeave={() => setHoveredCard(null)}
+          ref={cardRefs.designer}
         >
           <Title>
             <Design width={40} height={40} /> Designer
@@ -342,6 +373,7 @@ const MySkillsPage = () => {
         <Main
           onMouseEnter={() => setHoveredCard("developer")}
           onMouseLeave={() => setHoveredCard(null)}
+          ref={cardRefs.developer}
         >
           <Title>
             <Develope width={40} height={40} /> Full-Stack Developer
@@ -495,7 +527,7 @@ const MySkillsPage = () => {
                 "Matplotlib",
                 "developer"
               )}
-              
+
               {renderIcon(
                 SiPandas,
                 iconColors.pandas.normal,
