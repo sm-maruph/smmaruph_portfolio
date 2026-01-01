@@ -7,10 +7,23 @@ import t3 from "./images/t3.png";
 import m1 from "./images/m1.png";
 import m2 from "./images/m2.png";
 import m3 from "./images/m3.png";
+import w1 from "./images/w1.png";
+import w2 from "./images/w2.png";
 // work data
 export const Work = [
+ {
+  id: 1,
+  name: "Trainee Officer, IT",
+  description:
+    "Working on IT operations including network monitoring, data center operation and support, system security, and incident handling to ensure reliable and secure infrastructure.",
+  tags: ["Networking", "Datacenter", "Information Technology", "Security"],
+  demo: "#",
+  github: "#",
+  images: [w1, w2],
+},
+
   {
-    id: 1,
+    id: 2,
     name: "Preferito Perfume",
     description:
       "This project is built using WordPress, Shopify, and WooCommerce, providing a seamless and dynamic e-commerce experience with smooth animations and intuitive navigation.",
@@ -21,7 +34,7 @@ export const Work = [
     images: [p1, p2, p3],
   },
   {
-    id: 2,
+    id: 3,
     name: "Theatives",
     description:
       "A Portfolio website built in ReactJS, Node.js, Bootstrap, Express, and Supabase with deployment and backend, including searching and filtering functionalities.",
@@ -32,7 +45,7 @@ export const Work = [
     images: [t1, t2, t3],
   },
   {
-    id: 3,
+    id: 4,
     name: "Materials and More Co.",
     description:
       "A full-stack company website for Materials and More built using ReactJS for the frontend, Node.js and Express for the backend, Supabase for database management, with deployment and responsive design for showcasing products and services.",
