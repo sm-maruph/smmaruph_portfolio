@@ -128,6 +128,8 @@ const Intro = () => {
         <Text>
           <h1>Hello,</h1>
           <h3>I'm S.M. Shahriar Rahman Maruph</h3>
+                <h4>Oficer, IT, CBC</h4>
+
           <h4>SOC Analyst L1 | BSc in CSE</h4>
           <h6>
            I am a SOC Analyst L1 specializing in security monitoring, incident detection, and threat analysis.
